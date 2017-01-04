@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     int quit = 0;                   // If we want to quit...
     time_t t;                       // For random number initialization
 
-    if(argc>0) {
+    if(argc>1) {
       printf("ZeeLax Simulator, version 0.1b\n");
       return 0;
     }
