@@ -1,0 +1,70 @@
+---
+resource_types:
+    -   name: pull-request
+        type: docker-image
+        source:
+            repository: jtarchie/pr
+
+resources:
+    -   name: pr
+        type: pull-request
+        source:
+            every: true
+            repo: rnurgaliyev/zeel
+    - name: master
+      type: git
+      source:
+        uri: https://github.com/rnurgaliyev/zeel.git
+
+jobs:
+  - name: master-job
+    plan:
+      - get: master
+        trigger: true
+
+      - task: Bla
+        config:
+            platform: linux
+            image_resource:
+              type: docker-image
+              source:
+                repository: ubuntu
+            run:
+              path: sh
+              args:
+              - -exc
+              - |
+                  export DEBIAN_FRONTEND=noninteractive
+                  apt-get update
+                  apt-get install -y build-essential libncurses5-dev
+                  cd master/src
+                  ls
+                  make
+            inputs:
+              - name: master
+
+  - name: pr-job
+    plan:
+      - get: pr
+        trigger: true
+
+      - task: Bla-pr
+        config:
+            platform: linux
+            image_resource:
+              type: docker-image
+              source:
+                repository: ubuntu
+            run:
+              path: sh
+              args:
+              - -exc
+              - |
+                  export DEBIAN_FRONTEND=noninteractive
+                  apt-get update
+                  apt-get install -y build-essential libncurses5-dev
+                  cd pr/src
+                  ls
+                  make
+            inputs:
+              - name: pr
