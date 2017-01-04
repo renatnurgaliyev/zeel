@@ -1,5 +1,5 @@
 all:
-	gcc -o znake -Wall znake.c
+	gcc -o znake -Wall znake.c -lcurses
 
 test:
 	echo test.....
