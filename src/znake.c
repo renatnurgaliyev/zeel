@@ -67,8 +67,8 @@ void drawPlane(WINDOW *field_w, WINDOW *score_w)
     }
 
     // Draw score
-    if (!dead) mvwprintw(score_w, 0, 0, "Score: %d%% zeel", score*100); 
-        else mvwprintw(score_w, 0, 0, "Game over. Your score: %d%% zeel. Still not zeel enough.", score*100); 
+    if (!dead) mvwprintw(score_w, 0, 0, "Score: %d%% zeel", score*100);
+        else mvwprintw(score_w, 0, 0, "Game over. Your score: %d%% zeel. Still not zeel enough.", score*100);
 
     // Do actual screen output
     wrefresh(field_w);
@@ -123,6 +123,11 @@ int main(int argc, char *argv[])
     int y = STARTING_Y;             //
     int quit = 0;                   // If we want to quit...
     time_t t;                       // For random number initialization
+
+    if(argc>0) {
+      printf("ZeeLax Simulator, version 0.1b\n");
+      return 0;
+    }
 
     // Make some good random numbers
     srand((unsigned) time(&t));
